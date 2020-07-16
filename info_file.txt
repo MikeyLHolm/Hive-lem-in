@@ -1,0 +1,60 @@
+
+
+** ERROR HANDLING **
+
+	
+
+	Links:
+		-duplicate link
+		-reverse duplicate link
+		-no path
+		-link to non-existing room (2-53 when only 5 rooms)
+		-1+ links
+
+	Locations:
+		-Ant number negative (L-1-3)
+		-Ant number bigger than number of ants (L11 with 10 ant map)
+		-Ant number zero (L0-3)
+		-Invalid name (L1-X)
+		-No empty line between links and locations
+			2-5
+			L1-3 L2-4 L3-8
+
+	Rooms:
+		-Duplicate coordinates (not implemented, works)
+		-Multiple ends (seems to pick 1st)
+		-Multiple Starts (path finding obv issue when changing link to start, seems to pick 1st)
+		-Name duplicate (not implemented, seg fault)
+		-Name with L (not implemented, seg fault)
+		-Name with hashtag (not implemented, seg fault)
+		-No end room (finds paths still and finishes to another room)
+		-No rooms (not implemented, seg fault)
+		-No start room (finds wrong paths, works)
+		-is printable (seg faults with # in the middle of name)
+
+	DONE::
+
+		Ants:
+			-Alpha chars (lalala)
+			-alphanum chars (ml666)
+			-empty line
+			-no ants (# rooms as 1st line)
+			-space
+			-zero ants
+
+		Extra commands:
+			-random # in maps
+
+		Rooms:
+
+-----------
+
+BONUSES:
+
+-e for improved error management, ERROR "no start found etc"
+-p showing used paths
+-c coloring path ant used
+-img in repo for visual of algorithm and path selection
+
+-v verbose mode
+-a number of ants as input
