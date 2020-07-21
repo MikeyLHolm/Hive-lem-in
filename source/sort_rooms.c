@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_rooms.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elindber <elindber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlindhol <mlindhol@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 12:34:22 by elindber          #+#    #+#             */
-/*   Updated: 2020/07/15 16:44:55 by elindber         ###   ########.fr       */
+/*   Updated: 2020/07/21 09:59:24 by mlindhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		find_a_room(t_info *info, char *to_find)
 		else
 		{
 			start = cmp + 1;
-			cmp = start + ((end - start) / 2); 
+			cmp = start + ((end - start) / 2);
 		}
 	}
 	// maybe call exit_error here
@@ -57,7 +57,7 @@ void	swap_rooms(t_info *info, int a, int b)
 	t_room	*swap;
 
 	if (!(swap = (t_room*)malloc(sizeof(t_room))))
-		exit_error(ERR_MALLOC);
+		exit_error(ERR_MALLOC, info);
 	copy_room(info->rooms[a], swap);
 	copy_room(info->rooms[b], info->rooms[a]);
 	copy_room(swap, info->rooms[b]);
@@ -68,7 +68,7 @@ void	first_from_index(t_info *info, int i)
 {
 	int		first;
 	int		placement;
-	
+
 	first = i + 1;
 	placement = i;
 	while (info->rooms[i] != NULL)
@@ -76,6 +76,15 @@ void	first_from_index(t_info *info, int i)
 		if (ft_strcmp(info->rooms[i]->name, info->rooms[first]->name) < 0)
 			first = i;
 		i++;
+		if (info->rooms[i] != NULL)
+		{
+			if (info->rooms[placement]->x == info->rooms[i]->x
+			&& info->rooms[placement]->y == info->rooms[i]->y)
+				exit_error(ERR_ROOM_DUP_COORD, info);
+			else if (!(ft_strcmp(info->rooms[placement]->name, info->rooms[i]->name)))
+				exit_error(ERR_ROOM_DUP_NAME, info);
+
+		}
 	}
 	swap_rooms(info, first, placement);
 	if (info->rooms[placement + 1] != NULL)
@@ -91,11 +100,39 @@ void	first_from_index(t_info *info, int i)
 	}
 }
 
+void	malloc_for_valid_indexes(t_info *info)
+{
+	int	i;
+	int x;
+
+	i = 0;
+	x = 0;
+	if (!(info->valid_indexes = (int**)malloc(sizeof(int*) * info->max_paths + 1))
+	|| !(info->valid_indexes_2 = (int**)malloc(sizeof(int*) * info->max_paths + 1))
+	|| !(info->valid_paths = (char**)malloc(sizeof(char*) * info->max_paths + 1))
+	|| !(info->valid_paths_2 = (char**)malloc(sizeof(char*) * info->max_paths + 1)))
+		exit_error(ERR_MALLOC, info);
+	while (i < info->max_paths + 1)
+	{
+		if (!(info->valid_indexes[i] = (int*)malloc(sizeof(int) * 513))
+		|| !(info->valid_indexes_2[i] = (int*)malloc(sizeof(int) * 513)))
+			exit_error(ERR_MALLOC, info);
+		while (x < 513)
+		{
+			info->valid_indexes[i][x] = EMPTY;
+			info->valid_indexes_2[i][x] = EMPTY;
+			x++;
+		}
+		x = 0;
+		i++;
+	}
+}
+
 void	sort_rooms(t_info *info)
 {
 	int		i;
 	int		x;
-	
+
 	i = 0;
 	x = 0;
 	while (info->rooms[i + 1] != NULL)
@@ -117,25 +154,5 @@ void	sort_rooms(t_info *info)
 	while (info->rooms[info->end_index]->links[x] != NULL)
 		x++;
 	info->max_paths = i < x ? i : x;
-	if (!(info->valid_indexes = (int**)malloc(sizeof(int*) * info->max_paths + 1))
-	|| !(info->valid_indexes_2 = (int**)malloc(sizeof(int*) * info->max_paths + 1))
-	|| !(info->valid_paths = (char**)malloc(sizeof(char*) * info->max_paths + 1))
-	|| !(info->valid_paths_2 = (char**)malloc(sizeof(char*) * info->max_paths + 1)))
-		exit_error(ERR_MALLOC);
-	i = 0;
-	x = 0;
-	while (i < info->max_paths + 1)
-	{
-		if (!(info->valid_indexes[i] = (int*)malloc(sizeof(int) * 513))
-		|| !(info->valid_indexes_2[i] = (int*)malloc(sizeof(int) * 513)))
-			exit_error(ERR_MALLOC);
-		while (x < 513)
-		{
-			info->valid_indexes[i][x] = EMPTY;
-			info->valid_indexes_2[i][x] = EMPTY;
-			x++;
-		}
-		x = 0;
-		i++;
-	}
+	malloc_for_valid_indexes(info);
 }

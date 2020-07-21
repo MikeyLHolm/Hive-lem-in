@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elindber <elindber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlindhol <mlindhol@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 13:42:05 by elindber          #+#    #+#             */
-/*   Updated: 2020/07/15 17:27:23 by elindber         ###   ########.fr       */
+/*   Updated: 2020/07/21 11:26:42 by mlindhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define ERR_USAGE			"USAGE: ./lem-in < [file]"
 # define ERR_NO_EL			"Error: No empty line between links and locations"
 # define ERR_PARSE_V2		"Error: !Parse_v2"
+# define ERR_ROOM_STARTS_L	"Error: Room name starting with 'L'"
+# define ERR_ROOM_STARTS_SH	"Error: Room name starting with '#'"
 # define ERR_ROOM_DUP_COORD	"Error: Duplicate room coordinates found!"
 # define ERR_ROOM_M_END		"Error: Multiple ends found!"
 # define ERR_ROOM_M_START	"Error: Multiple starts found!"
@@ -66,17 +68,23 @@ typedef enum
 		TRUE,
 }		t_bool;
 
-// typedef struct 		s_lem_in
-// {
-// 	t_bool			help;
-// 	t_bool			verbose;
-// }					t_lem_in;
+typedef struct			s_flags
+{
+	int					ants;
+	int					error;
+	int					help;
+	int					lines;
+	int					paths;
+	int					verbose;
+}						t_flags;
 
 typedef struct			s_output
 {
 	char				*line;
 	struct s_output		*next;
 }						t_output;
+
+
 
 typedef struct			s_room
 {
@@ -95,6 +103,7 @@ typedef struct			s_room
 	int					cost;
 	int					cost_2;
 	int					ants;
+	int					ants_2;
 	int					ant_id;
 	int					flow;
 	int					y;
@@ -158,6 +167,7 @@ typedef struct			s_info
 	char				**rooms_to_check;
 	int					tmp_string[513];
 	t_ant				*ant;
+	t_flags				*flags;
 	t_location			*location;
 	t_room				**rooms;
 	t_room				***route;
@@ -183,16 +193,16 @@ typedef struct			s_path
 ** Functions
 */
 
-int						parse_v2(t_output *output, t_info *info, int count);
+int						parse_v2(t_output *output, t_info *info);
 int						last_on_path(int *path);
 void					get_links(t_info *info);
 int						get_links_for_start(t_info *info);
 void					save_path(t_info *info, int path_i);
-void					ant_flow(t_info *info);
-void					exit_error(const char *str);
+void					exit_error(const char *str, t_info *info);
+void					exit_error_no_info(const char *str);
 void					free_2d_array(char **arr);
 void					find_paths(t_info *info);
-void					add_to_path(t_info *info, int s, int i);
+void					add_to_path(t_info *info, int s, int i, int y);
 void					sort_rooms(t_info *info);
 int						find_a_room(t_info *info, char *to_find);
 void					print_paths(t_info *info);
@@ -200,6 +210,8 @@ void					reset_rooms(t_info *info);
 void					reset_tmp_stacks(t_info *info);
 
 void					parse_ants(t_info *info, t_output *output);
+int						ft_isint(char *str);
+void					parse_flags(int ac, char **av, t_info *info);
 
 /*
 **	Ant turns functions
@@ -208,5 +220,7 @@ void					parse_ants(t_info *info, t_output *output);
 void					lst_free(t_info *info);
 void					print_locations(t_info *info);
 void					take_turns(t_info *info);
+void					ant_flow(t_info *info);
+void					print_turns_2(t_info *info);
 
 #endif

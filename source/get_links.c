@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_links.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elindber <elindber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlindhol <mlindhol@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 14:04:26 by elindber          #+#    #+#             */
-/*   Updated: 2020/07/15 15:26:06 by elindber         ###   ########.fr       */
+/*   Updated: 2020/07/21 09:54:07 by mlindhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	find_paths(t_info *info)
 				info->rooms[l]->visited = info->rooms[l]->start_or_end == 2 ? 0 : 1;
 				if (info->rooms[l]->level < 0)
 					info->rooms[l]->level = info->rooms[l]->start_or_end == 2 ? INT_MAX : info->level;
-				add_to_path(info, s, l);
+				add_to_path(info, s, l, 0);
 				add_to_next_round(info, s, l);
 			}
 			j++;
@@ -134,16 +134,16 @@ void	get_links(t_info *info)
 {
 	int		i;
 	int		t;
-	
+
 	i = 0;
 	t = 0;
 	if (!(info->paths = (char**)malloc(sizeof(char*) * info->link_amnt + 1))
 	|| !(info->index_stack = (int**)malloc(sizeof(int*) * info->link_amnt)))
-		exit_error(ERR_MALLOC);
+		exit_error(ERR_MALLOC, info);
 	while (i < info->link_amnt)
 	{
 		if (!(info->index_stack[i] = (int*)malloc(sizeof(int) * 513)))
-			exit_error(ERR_MALLOC);
+			exit_error(ERR_MALLOC, info);
 		while (t < 513)
 		{
 			info->index_stack[i][t] = EMPTY;
