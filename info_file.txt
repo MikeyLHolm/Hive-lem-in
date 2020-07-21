@@ -28,6 +28,7 @@ LEM IN TeSTER
 
 	Rooms:
 
+		-command should be followed by room
 		-Multiple ends (seems to pick 1st)
 		-Multiple Starts (path finding obv issue when changing link to start, seems to pick 1st)
 

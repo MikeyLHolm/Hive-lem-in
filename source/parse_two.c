@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_two.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlindhol <mlindhol@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: elindber <elindber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:10:11 by elindber          #+#    #+#             */
-/*   Updated: 2020/07/21 09:59:29 by mlindhol         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:45:58 by elindber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,12 @@ int		room_info(t_info *info, char *line, int i, int start_end)
 	if (line[0] == 'L')
 		exit_error(ERR_ROOM_STARTS_L, info);
 	room_data = ft_strsplit(line, ' ');
+	if (ft_strchr(room_data[0], '-'))
+		exit_error(ERR_ROOM_NAME_DASH, info);
+	if (room_data[3] != NULL)
+		exit_error(ERR_ROOM_ARGS_MANY, info);
+	if (room_data[1] == NULL || room_data[2] == NULL)
+		exit_error(ERR_ROOM_ARGS_FEW, info);
 	if (!(info->rooms[i] = (t_room*)malloc(sizeof(t_room))))
 		return (0);
 	info->rooms[i]->name = ft_strdup(room_data[0]);
@@ -152,7 +158,6 @@ int		parse_v2(t_output *output, t_info *info)
 	tmp2 = output;
 	rooms = 0;
 	links = 0;
-	// add protection vs map containing only nbr of ants. atm segfaults here since there is no more lines
 	while (get_next_line(info->tmpfd, &line))
 	{
 		if (!(tmp = (t_output*)malloc(sizeof(t_output))))
@@ -167,6 +172,8 @@ int		parse_v2(t_output *output, t_info *info)
 		output->next = NULL;
 		free(line);
 	}
+	if (rooms == 0 || info->link_amnt == 0)
+		rooms == 0 ? exit_error(ERR_ROOM_NO_ROOMS, info) : exit_error(ERR_NO_LINK, info);
 	if (!(info->rooms = (t_room**)malloc(sizeof(t_room*) * rooms + 1)))
 		exit_error(ERR_MALLOC, info);
 	info->rooms[rooms] = NULL;

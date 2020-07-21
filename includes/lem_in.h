@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlindhol <mlindhol@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: elindber <elindber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 13:42:05 by elindber          #+#    #+#             */
-/*   Updated: 2020/07/21 11:26:42 by mlindhol         ###   ########.fr       */
+/*   Updated: 2020/07/21 16:28:06 by elindber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@
 **					-Locations: (L-1-3), (L11 with 10 ant map), (L0-3), (L1-X)
 */
 
-# define ERR_ANTS			"Error: Ants must be positive int!"
-# define ERR_BAD_LINK		"Error: Link to non-existing room detected!"
-# define ERR_DUP_LINK		"Error: Duplicate link found!"
+# define ERR_ANTS			"Error: Ant amount must be between 1 and 999999"
+# define ERR_BAD_LINK		"Error: Link to non-existing room detected"
+# define ERR_DUP_LINK		"Error: Duplicate link found"
+# define ERR_NO_LINK		"Error: No links found"
 # define ERR_NO_PATH		"Error: No path found!"
 # define ERR_OPEN			"Error: Failed to open!"
 # define ERR_MALLOC			"Error: Failed to Malloc!"
@@ -43,6 +44,9 @@
 # define ERR_PARSE_V2		"Error: !Parse_v2"
 # define ERR_ROOM_STARTS_L	"Error: Room name starting with 'L'"
 # define ERR_ROOM_STARTS_SH	"Error: Room name starting with '#'"
+# define ERR_ROOM_NAME_DASH	"Error: Room name including '-'"
+# define ERR_ROOM_ARGS_FEW	"Error: Too few room arguments"
+# define ERR_ROOM_ARGS_MANY	"Error: Too many room arguments"
 # define ERR_ROOM_DUP_COORD	"Error: Duplicate room coordinates found!"
 # define ERR_ROOM_M_END		"Error: Multiple ends found!"
 # define ERR_ROOM_M_START	"Error: Multiple starts found!"
@@ -217,7 +221,7 @@ void					parse_flags(int ac, char **av, t_info *info);
 **	Ant turns functions
 */
 
-void					lst_free(t_info *info);
+void					lst_free(t_output *op);
 void					print_locations(t_info *info);
 void					take_turns(t_info *info);
 void					ant_flow(t_info *info);

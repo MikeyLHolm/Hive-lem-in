@@ -3,25 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlindhol <mlindhol@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: elindber <elindber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 16:26:57 by elindber          #+#    #+#             */
-/*   Updated: 2020/07/21 12:58:51 by mlindhol         ###   ########.fr       */
+/*   Updated: 2020/07/21 16:56:28 by elindber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-void			free_memory(t_info *info, int i)
+void		lst_free(t_output *op)
 {
-	free(info->start);
-	free(info->end);
-	while (info->rooms[i] != NULL)
+	t_output	*current;
+	t_output	*tmp;
+
+	current = op;
+	while (current->next)
 	{
-		free(info->rooms[i]->name);
-		i++;
+		tmp = current;
+		current = current->next;
+		free(tmp->line);
+		free(tmp);
 	}
-	free_2d_array(info->paths);
+	free(current->line);
+	free(current);
+}
+
+void			free_memory(t_output *op, t_ant *ant, t_link *link)
+{
+	lst_free(op);
+	free(ant);
+	free(link);
 }
 
 void			free_2d_array(char **arr)
@@ -68,7 +80,8 @@ void	print_paths(t_info *info)
 	i = 0;
 	while (info->valid_paths[i] != NULL)
 	{
-		ft_printf("[%s]\n", ft_strtrim(info->valid_paths[i]));
+	//	ft_printf("[%s]\n", ft_strtrim(info->valid_paths[i]));
+		ft_printf("[%s]\n", info->valid_paths[i]);
 		i++;
 	}
 	ft_putchar('\n');
@@ -78,7 +91,8 @@ void	print_paths(t_info *info)
 		ft_printf("OR\n");
 		while (info->valid_paths_2[i] != NULL)
 		{
-			ft_printf("[%s]\n", ft_strtrim(info->valid_paths_2[i]));
+		//	ft_printf("[%s]\n", ft_strtrim(info->valid_paths_2[i]));
+			ft_printf("[%s]\n", info->valid_paths_2[i]);
 			i++;
 		}
 	}
@@ -136,7 +150,7 @@ static void		lem_in(int ac, char *av, t_info *info)
 	//write(1, "\n", 1);
 	ant_flow(info);
 	ft_printf("lines: %d\n", info->lines);
-//	free_memory(info, 0);
+	free_memory(output, ant, link);
 }
 
 int				main(int ac, char **av)
@@ -156,6 +170,5 @@ int				main(int ac, char **av)
 		ft_printf("HELP!\n");
 	else
 		exit_error(ERR_USAGE, info);
-//	while (1);
 	return (0);
 }

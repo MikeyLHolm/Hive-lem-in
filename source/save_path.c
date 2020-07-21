@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlindhol <mlindhol@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: elindber <elindber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:01:15 by elindber          #+#    #+#             */
-/*   Updated: 2020/07/21 09:54:07 by mlindhol         ###   ########.fr       */
+/*   Updated: 2020/07/21 16:55:34 by elindber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void	save_path(t_info *info, int path_i)
 	info->phase == 1 ? info->path_amount_1++ : info->path_amount_2++;
 	info->path_saved = 1;
 	//	"check if further paths are needed function" --> if no more paths needed change info->path_saved = 2;
-	if ((info->phase == 1 && enough_paths(info, info->path_amount_1 - 1))
+	if ((info->phase == 1 && enough_paths(info, info->path_amount_1 - 1)) 
 	|| (info->phase == 2 && enough_paths(info, info->path_amount_2 - 1)))
 	{
 		info->path_saved = 2;
