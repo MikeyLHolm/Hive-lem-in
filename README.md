@@ -46,11 +46,24 @@ make
 ```
 ./lem-in [-flags] < [map]
 ```
-
+Running with in-built map generator:
 ```
 ./generator --flow-one | ./lem-in [-flags]
+./generator --flow-ten | ./lem-in [-flags]
+./generator --flow-thousand | ./lem-in [-flags]
+./generator --big | ./lem-in [-flags]
+./generator --big-superposition | ./lem-in [-flags]
 ```
-
+Available flags:
+```
+-a    : input N of ants manually. N must come as an argument after flags. [./lem-in -a -ep N].
+-e    : improved error management.
+-h    : help menu.
+-l    : prints out lines used.
+-p    : prints out paths used.
+-v    : verbose mode
+-x    : checks for mem leaks
+```
 
 ## Disclaimer
 
