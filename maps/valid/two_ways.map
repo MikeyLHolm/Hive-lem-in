@@ -1,0 +1,20 @@
+10
+##start
+start 1 34
+##end
+route 1 4
+had 24 2
+one 41 1
+and 314 4
+da 41 53
+way 3252 41
+another 143 14
+start-had
+start-one
+one-and
+had-da
+da-way
+way-route
+and-another
+another-route
+one-way

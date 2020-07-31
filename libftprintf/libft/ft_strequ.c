@@ -6,7 +6,7 @@
 /*   By: mlindhol <mlindhol@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 17:17:02 by elindber          #+#    #+#             */
-/*   Updated: 2020/07/14 10:35:58 by mlindhol         ###   ########.fr       */
+/*   Updated: 2020/07/29 12:33:02 by mlindhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,25 @@
 **		s2++;
 **	}
 **	return (!(*(s1) ^ *(s2)));
+**
+** OLD VERSION
+**
+** while (s1[i] == s2[i])
+**	{
+**		if (s1[i] == '\0' && s2[i] == '\0')
+**			return (1);
+**		i++;
+**	}
+**	return (0);
+** }
 */
 
 int		ft_strequ(char const *s1, char const *s2)
 {
-	int	i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	while (s1[i] == s2[i])
+	while (s1[0] != '\0' && !(*(s1) ^ *(s2)))
 	{
-		if (s1[i] == '\0' && s2[i] == '\0')
-			return (1);
-		i++;
+		s1++;
+		s2++;
 	}
-	return (0);
+	return (!(*(s1) ^ *(s2)));
 }

@@ -3,16 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: elindber <elindber@student.42.fr>          +#+  +:+       +#+         #
+#    By: mlindhol <mlindhol@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/16 13:21:19 by elindber          #+#    #+#              #
-#    Updated: 2020/07/13 14:48:50 by elindber         ###   ########.fr        #
+#    Updated: 2020/07/31 12:50:59 by mlindhol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
-SRC = source/*.c
+SRC = source/ant_flow.c source/dfs_search.c source/flag_management.c \
+	  source/handle_paths.c source/parse_ants.c source/reset_paths.c \
+	  source/run_second_and_third_round.c source/sort_rooms.c \
+	  source/calculate_moves.c source/divide_ants_to_paths.c \
+	  source/free_memory.c source/lem_in.c source/parsing_helpers.c \
+	  source/room_sorting_utils.c source/save_path.c source/delete_dead_end.c \
+	  source/error_management.c source/get_links.c source/parse.c \
+	  source/print.c source/run_path_finding.c source/sort_paths.c
 
 LIBFT = ./libftprintf/libftprintf.a
 

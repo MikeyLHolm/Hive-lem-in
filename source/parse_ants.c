@@ -6,7 +6,7 @@
 /*   By: mlindhol <mlindhol@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 10:50:24 by mlindhol          #+#    #+#             */
-/*   Updated: 2020/07/21 11:33:41 by mlindhol         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:37:35 by mlindhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,13 @@ int			ft_isint(char *str)
 
 /*
 **	Validating and reading the first line.
-**
-**	Add -a flag...
 */
 
 void		parse_ants(t_info *info, t_output *output)
 {
-
-	if (ft_isint(output->line) )
+	if (ft_isint(output->line))
 	{
-		if (!info->flags->ants)
+		if (!(info->flag_storage & ANTS))
 		{
 			info->ants = ft_atoi(output->line);
 			if (info->ants < 1)
