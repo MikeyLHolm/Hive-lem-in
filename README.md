@@ -66,6 +66,26 @@ Available flags:
 ```
 
 ## Disclaimer
+This project has to be completed respecting our schools norme. Here is some of the rules:
+```
+* Each function must be maximum 25 lines, not counting the function’s own curly brackets.
+* Each line must be at most 80 columns wide, comments included.
+* One instruction per line.
+* One single variable declaration per line.
+* No declaration and an initialisation on the same line.
+* A function can take 4 named parameters maximum.
+* You can’t declare more than 5 variables per function.
+```
+Available library functions for this project:
+```
+* malloc
+* free
+* read
+* write
+* strerror
+* perror
+* exit
+```
 
 ## Improvements
 
