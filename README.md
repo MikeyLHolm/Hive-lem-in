@@ -40,12 +40,15 @@ This input will translate into:
 ## Algorithm
 
 ## How to use
+Clone repo:
 ```
 git clone https://github.com/MikeyLHolm/Hive-lem-in.git
 ```
+Create executable in Hive-lem-in directory:
 ```
 make
 ```
+Run with premade map:
 ```
 ./lem-in [-flags] < [map]
 ```
