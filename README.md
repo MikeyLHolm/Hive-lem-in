@@ -41,6 +41,9 @@ This input will translate into:
 
 ## How to use
 ```
+git clone https://github.com/MikeyLHolm/Hive-lem-in.git
+```
+```
 make
 ```
 ```
