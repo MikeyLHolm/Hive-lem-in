@@ -1,5 +1,5 @@
 # Hive-lem-in
-Elementary max flow algorithmic project. Guiding ants thru ant farm.
+Elementary max flow algorithmic project. Guiding ants thru ant farm. Collaboration with [Eino Lindberg](https://github.com/einoob).
 
 ## Objectives
 The goal of this project is to find the quickest way to get n ants across the farm. Quickest way means the solution with the least number of lines, respecting the output format requested below. Ants will also need to avoid traffic jams as well as walking all over their fellow ants.
@@ -87,9 +87,11 @@ Available library functions for this project:
 * exit
 ```
 
-## Improvements
+## Possible Improvements and problems
+* Flags accept wrong letters at end.
+* Implementing residual flows to links would increase accuracy.
 
 ## Grade
-** ??? / 100**
+** 109 / 100**
 
-_Completed 31.7.2020_
+_Completed 4.8.2020_
