@@ -38,6 +38,15 @@ This input will translate into:
      [end]
 ```
 ## Algorithm
+Detailed [Algorithm explanation](https://github.com/MikeyLHolm/Hive-lem-in/blob/master/lem_in_pdf.pdf).
+
+TLDR:
+```
+Running BFS at different depth levels and picking up the best found path set by
+comparing move amounts of different path sets. On the bigger maps we destroy 
+links to dead ends so running searches are more effective on consecutive runs. 
+During consecutive searches we limit the rooms BFS can visit so new paths are found.
+```
 
 ## How to use
 Clone repo:
@@ -81,6 +90,7 @@ This project has to be completed respecting our schools norme. Here is some of t
 * No declaration and an initialisation on the same line.
 * A function can take 4 named parameters maximum.
 * You can’t declare more than 5 variables per function.
+* No for-loops allowed. Just while.
 ```
 Available library functions for this project:
 ```
